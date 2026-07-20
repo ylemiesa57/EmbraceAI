@@ -1,0 +1,162 @@
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  color: #9aa8b5;
+  margin-top: 0;
+  font-size: 0.9rem;
+}
+
+.statusRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #9aa8b5;
+  margin-bottom: 2rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6b7885;
+}
+
+.dot.ok {
+  background: #3fb950;
+}
+
+.dot.down {
+  background: #f85149;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #2d3742;
+  background: #161d26;
+  color: #e6edf3;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+textarea:focus {
+  outline: 2px solid #4a90d9;
+  outline-offset: 1px;
+}
+
+button {
+  align-self: flex-start;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  background: #4a90d9;
+  color: #0f1720;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #2d3742;
+  color: #6b7885;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #f85149;
+  font-size: 0.9rem;
+}
+
+.results {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.resultCard {
+  border: 1px solid #2d3742;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #161d26;
+}
+
+.resultCard .meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #9aa8b5;
+  margin-bottom: 0.5rem;
+}
+
+.resultCard .text {
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  color: #cdd6e0;
+}
+
+.predictionBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+}
+
+.predictionBar .label {
+  width: 130px;
+  flex-shrink: 0;
+  color: #cdd6e0;
+}
+
+.predictionBar .track {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #2d3742;
+  overflow: hidden;
+}
+
+.predictionBar .fill {
+  height: 100%;
+  background: #4a90d9;
+}
+
+.predictionBar .score {
+  width: 45px;
+  text-align: right;
+  color: #9aa8b5;
+}
+
+.kafkaTag {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #1f2b1f;
+  color: #3fb950;
+}
+
+.kafkaTag.skipped {
+  background: #2b241f;
+  color: #d29922;
+}

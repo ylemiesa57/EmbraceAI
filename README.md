@@ -34,3 +34,29 @@ python pipeline/spark_consumer.py \
   --s3-output-path s3a://embraceai-data/conversation-turns/ \
   --checkpoint-location s3a://embraceai-data/checkpoints/conversation-turns/
 ```
+
+## Frontend + Hugging Face + Kafka integration
+
+`backend/` and `frontend/` add a self-contained demo path that ties DistilBERT, a real API layer, and the Kafka pipeline above together:
+
+- **`backend/app.py`** — a FastAPI service exposing `POST /api/classify`. Instead of loading DistilBERT locally (as the original Replit service and `pipeline/spark_consumer.py` do), it calls the model through the **Hugging Face Inference API**, so the service itself stays lightweight and the model can be swapped by changing `HF_MODEL_ID`. It retries through Inference API cold starts (503 + `estimated_time`), and — when `KAFKA_ENABLED=true` — publishes each classified turn onto the same `embraceai-conversation-turns` topic used by `pipeline/kafka_producer.py`, reusing that module's producer/topic instead of duplicating the wiring. A Kafka publish failure is logged but never turns into a failed classification response.
+- **`frontend/`** — a small Vite + React + TypeScript app that posts text to `/api/classify` and renders the returned label distribution as bars, plus whether the turn was published to Kafka. It's a demo for the classification + pipeline plumbing, not a reproduction of the counseling/chat product itself.
+
+**Status:** the backend has been exercised locally with FastAPI's `TestClient` (health check, validation errors, and the "no HF token configured" path all verified), and the frontend has been built and linted clean. What has **not** been verified in this environment: a real call to the Hugging Face Inference API (needs a real `HF_API_TOKEN`, see `backend/.env.example`) and an end-to-end publish against a live Kafka broker (needs `KAFKA_ENABLED=true` and a reachable `KAFKA_BOOTSTRAP_SERVERS`). Both paths fail loudly/gracefully rather than silently if unconfigured, so it's safe to run without either.
+
+### Usage
+
+```bash
+# Backend
+cd backend
+pip install -r requirements.txt
+cp .env.example .env   # fill in HF_API_TOKEN at minimum
+uvicorn app:app --reload --port 8000
+
+# Frontend (separate terminal)
+cd frontend
+npm install
+cp .env.example .env   # defaults to http://localhost:8000
+npm run dev
+```
+

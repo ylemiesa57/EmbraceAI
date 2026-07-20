@@ -1,6 +1,6 @@
 # EmbraceAI
 
-AI-powered mental-health support system. 1st Place / Top NLP Project, AI CAMP NLP Track, HackMIT.
+AI-powered mental-health support system. 1st Place / Top NLP Project, AI CAMP NLP Track,
 
 At its core, EmbraceAI uses a fine-tuned DistilBERT model to classify user intent across 12 conversational categories at 91% accuracy, served via a FastAPI inference API for live, single-conversation use.
 
